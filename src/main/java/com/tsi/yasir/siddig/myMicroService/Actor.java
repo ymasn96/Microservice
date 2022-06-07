@@ -8,10 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
 
-
-//@Primary
-//@Component
-//@Repository
 @Entity
 @Table(name = "actor")
 public class Actor {
