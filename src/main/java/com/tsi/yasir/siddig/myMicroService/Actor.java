@@ -1,12 +1,8 @@
 package com.tsi.yasir.siddig.myMicroService;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.Id;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 
 @Entity
 @Table(name = "actor")
@@ -14,6 +10,7 @@ public class Actor {
     //Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @org.springframework.data.annotation.Id
     private int actor_id;
     String first_name;
     String last_name;
@@ -30,13 +27,13 @@ public class Actor {
 
     //Methods
 
-    public int getActor_id() {
-        return actor_id;
-    }
-
-    public void setActor_id(int actor_id) {
-        this.actor_id = actor_id;
-    }
+//    public int getActor_id() {
+//        return actor_id;
+//    }
+//
+//    public void setActor_id(int actor_id) {
+//        this.actor_id = actor_id;
+//    }
 
     public String getFirst_name() {
         return first_name;

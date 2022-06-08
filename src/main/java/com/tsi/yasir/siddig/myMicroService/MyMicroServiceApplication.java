@@ -3,9 +3,12 @@ package com.tsi.yasir.siddig.myMicroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 
 @SpringBootApplication
@@ -30,10 +33,32 @@ public class MyMicroServiceApplication {
 		return actorRepository.findAll();
 	}
 
-	@PostMapping
+	@GetMapping("/Get_Actors_By_Id")
+	public @ResponseBody
+	Optional<Actor> getActorsById(@RequestParam int id) {
+		return actorRepository.findById(id);
+	}
+
+	@PostMapping("/Add_Actor")
 	public ResponseEntity<Actor> addActor(@RequestBody Actor actor) {
 		Actor newActor = actorRepository.save(actor);
 		return ResponseEntity.status(HttpStatus.CREATED).body(newActor);
+	}
+
+	@PutMapping("/Update_Actor")
+	public ResponseEntity<Actor> addNewActor(@RequestParam int id, String first_name, String last_name) throws ResourceNotFoundException {
+		Actor updateActor = actorRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Actor does not exist with id: " + id));
+		updateActor.setFirst_name(first_name);
+		updateActor.setLast_name(last_name);
+		actorRepository.save(updateActor);
+		return ResponseEntity.ok(updateActor);
+	}
+
+	@DeleteMapping("/Delete_Actor")
+	public ResponseEntity<Actor> deleteActor(@RequestParam int id) {
+		Actor removeActor = actorRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Actor does not exist with id: " + id));
+		actorRepository.deleteById(id);
+		return ResponseEntity.ok(removeActor);
 	}
 
 
