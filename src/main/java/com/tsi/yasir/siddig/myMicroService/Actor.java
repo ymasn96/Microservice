@@ -26,6 +26,10 @@ public class Actor {
 
     //Methods
 
+    public int getActor_id() { return actor_id; }
+
+    public void setActor_id(int actor_id) { this.actor_id = actor_id; }
+
     public String getFirst_name() {
         return first_name;
     }

@@ -4,12 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
-
 
 @SpringBootApplication
 @RestController
@@ -35,14 +33,15 @@ public class MyMicroServiceApplication {
 
 	@GetMapping("/Get_Actors_By_Id")
 	public @ResponseBody
-	Optional<Actor> getActorsById(@RequestParam int id) {
+	Optional<Actor> getAnActor(@RequestParam int id) {
 		return actorRepository.findById(id);
 	}
 
 	@PostMapping("/Add_Actor")
-	public ResponseEntity<Actor> addActor(@RequestBody Actor actor) {
-		Actor newActor = actorRepository.save(actor);
-		return ResponseEntity.status(HttpStatus.CREATED).body(newActor);
+	public ResponseEntity<Actor> addActor(@RequestParam String first_name, String last_name) {
+		Actor newActor = new Actor(first_name, last_name);
+		actorRepository.save(newActor);
+		return ResponseEntity.ok(newActor);
 	}
 
 	@PutMapping("/Update_Actor")
