@@ -12,8 +12,8 @@ public class Actor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @org.springframework.data.annotation.Id
     private int actor_id;
-    String first_name;
-    String last_name;
+    private String first_name;
+    private String last_name;
 
     //Constructor
 
@@ -22,18 +22,9 @@ public class Actor {
         this.last_name = last_name;
     }
 
-    public Actor() {
-    }
+    public Actor() {}
 
     //Methods
-
-//    public int getActor_id() {
-//        return actor_id;
-//    }
-//
-//    public void setActor_id(int actor_id) {
-//        this.actor_id = actor_id;
-//    }
 
     public String getFirst_name() {
         return first_name;
