@@ -7,6 +7,7 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.CacheRequest;
 import java.util.Optional;
 
 @SpringBootApplication
@@ -15,51 +16,49 @@ import java.util.Optional;
 public class MyMicroServiceApplication {
 
 	@Autowired
-	private IActorRepository actorRepository;
+	private IActorRepository actorRepo;
 
 	public static void main(String[] args) {
 		SpringApplication.run(MyMicroServiceApplication.class, args);
 	}
 
-	public MyMicroServiceApplication(IActorRepository actorRepository) {
-		this.actorRepository = actorRepository;
+	public MyMicroServiceApplication(IActorRepository actorRepo) {
+		this.actorRepo = actorRepo;
 	}
 
 	@GetMapping("/All_Actors")
 	public @ResponseBody
 	Iterable<Actor>getAllActors() {
-		return actorRepository.findAll();
+		return actorRepo.findAll();
 	}
 
 	@GetMapping("/Get_Actors_By_Id")
 	public @ResponseBody
 	Optional<Actor> getAnActor(@RequestParam int id) {
-		return actorRepository.findById(id);
+		return actorRepo.findById(id);
 	}
 
 	@PostMapping("/Add_Actor")
 	public ResponseEntity<Actor> addActor(@RequestParam String first_name, String last_name) {
 		Actor newActor = new Actor(first_name, last_name);
-		actorRepository.save(newActor);
+		actorRepo.save(newActor);
 		return ResponseEntity.ok(newActor);
 	}
 
 	@PutMapping("/Update_Actor")
 	public ResponseEntity<Actor> addNewActor(@RequestParam int id, String first_name, String last_name) throws ResourceNotFoundException {
-		Actor updateActor = actorRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Actor does not exist with id: " + id));
+		Actor updateActor = actorRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Actor does not exist with id: " + id));
 		updateActor.setFirst_name(first_name);
 		updateActor.setLast_name(last_name);
-		actorRepository.save(updateActor);
+		actorRepo.save(updateActor);
 		return ResponseEntity.ok(updateActor);
 	}
 
 	@DeleteMapping("/Delete_Actor")
 	public ResponseEntity<Actor> deleteActor(@RequestParam int id) {
-		Actor removeActor = actorRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Actor does not exist with id: " + id));
-		actorRepository.deleteById(id);
+		Actor removeActor = actorRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Actor does not exist with id: " + id));
+		actorRepo.deleteById(id);
 		return ResponseEntity.ok(removeActor);
 	}
-
-
 
 }
