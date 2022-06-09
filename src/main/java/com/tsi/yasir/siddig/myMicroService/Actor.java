@@ -11,6 +11,7 @@ public class Actor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @org.springframework.data.annotation.Id
+
     private int actor_id;
     private String first_name;
     private String last_name;
