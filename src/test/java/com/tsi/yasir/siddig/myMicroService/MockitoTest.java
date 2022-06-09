@@ -1,7 +1,5 @@
 package com.tsi.yasir.siddig.myMicroService;
 
-
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,31 +32,34 @@ public class MockitoTest {
 
     @Test
     public void getAnActor() {
-        Actor testActor = new Actor("hello", "world");
+        Actor testActor = new Actor("Benedict", "Cumberbatch");
         testActor.setActor_id(1);
         when(actorRepo.findById(1)).thenReturn(Optional.of(testActor));
         Optional<Actor> Actual = microServiceApplication.getAnActor(testActor.getActor_id());
         Actor Expected = testActor;
-        Assertions.assertEquals(Expected, Actual,"Could not find actor with ID: ");
+        Assertions.assertEquals(Expected, Actual.get(),"Could not find actor with ID: ");
     }
 
     @Test//post method for an actor
     public void addAnActor() {
-        Actor testActor = new Actor("testFName", "testLName");
-        testActor.setActor_id(1);
+        Actor testActor = new Actor("Johnny", "Depp");
+        testActor.setActor_id(1); // Set actor id to 1
         Actor Actual = microServiceApplication.addActor(testActor.getFirst_name(), testActor.getLast_name()).getBody();
         ArgumentCaptor<Actor> actorArgumentCaptor = ArgumentCaptor.forClass(Actor.class);
         verify(actorRepo).save(actorArgumentCaptor.capture());
         Actor Expected = actorArgumentCaptor.getValue();
         Assertions.assertEquals(Expected, Actual, "Actor was not added.");
+
+//        ArgumentCaptor allows us to capture an argument passed to a method in order to inspect it.
+//        This is especially useful when we can't access the argument outside the method we'd like to test.
     }
 
-    @Test//put  method for an actor
+    @Test
     public void updateActor(){
-        Actor testActor = new Actor("testFName", "testLName");
+        Actor testActor = new Actor("Tom", "Holland");
         testActor.setActor_id(1);
         when(actorRepo.findById(1)).thenReturn(Optional.of(testActor));
-        Actor Actual = microServiceApplication.updateActor(testActor.getActor_id(), testActor.getFirst_name(), testActor.getLast_name()).getBody();
+        Actor Actual = microServiceApplication.addNewActor(testActor.getActor_id(), testActor.getFirst_name(), testActor.getLast_name()).getBody();
         ArgumentCaptor<Actor> actorArgumentCaptor = ArgumentCaptor.forClass(Actor.class);
         verify(actorRepo).save(actorArgumentCaptor.capture());
         Actor Expected = actorArgumentCaptor.getValue();
@@ -72,7 +73,6 @@ public class MockitoTest {
         when(actorRepo.findById(1)).thenReturn(Optional.of(testActor));
         doNothing().when(actorRepo).deleteById(1);
         Actor Actual = microServiceApplication.deleteActor(testActor.getActor_id()).getBody();
-        //ArgumentCaptor<Actor> actorArgumentCaptor = ArgumentCaptor.forClass(Actor.class);
         actorRepo.deleteById(testActor.getActor_id());
         Actor Expected = testActor;
         Assertions.assertEquals(Expected,Actual,"Actor was not deleted.");
