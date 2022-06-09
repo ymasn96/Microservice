@@ -17,7 +17,7 @@ public class MockitoTest {
 
     private MyMicroServiceApplication microServiceApplication;
     @Mock
-    private IActorRepository actorRepo;
+    private ActorRepository actorRepo;
 
     @BeforeEach
     void setUp() {

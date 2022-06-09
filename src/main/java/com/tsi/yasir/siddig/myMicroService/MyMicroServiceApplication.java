@@ -7,7 +7,6 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.CacheRequest;
 import java.util.Optional;
 
 @SpringBootApplication
@@ -16,20 +15,20 @@ import java.util.Optional;
 public class MyMicroServiceApplication {
 
 	@Autowired
-	private IActorRepository actorRepo;
+	private final ActorRepository actorRepo;
 
 	public static void main(String[] args) {
 		SpringApplication.run(MyMicroServiceApplication.class, args);
 	}
 
-	public MyMicroServiceApplication(IActorRepository actorRepo) {
+	public MyMicroServiceApplication(ActorRepository actorRepo) {
 		this.actorRepo = actorRepo;
 	}
 
 	@GetMapping("/All_Actors")
 	public @ResponseBody
-	Iterable<Actor>getAllActors() {
-		return actorRepo.findAll();
+	void getAllActors() {
+		actorRepo.findAll();
 	}
 
 	@GetMapping("/Get_Actors_By_Id")

@@ -4,20 +4,21 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class addActorStepsDef {
-    @Given("I have the actors information")
-    public void i_have_the_actors_information() {
-//        Actor testActor = new Actor();
-        throw new io.cucumber.java.PendingException();
-    }
-    @When("I input the data into the database")
-    public void i_input_the_data_into_the_database() {
+public class viewActorsStepsDef {
+    @Given("I have the actors table")
+    public void i_have_the_actors_table() {
         // Write code here that turns the phrase above into concrete actions
         throw new io.cucumber.java.PendingException();
     }
-    @Then("I get the success return string")
-    public void i_get_the_success_return_string() {
+    @When("I request to view all actors")
+    public void i_request_to_view_all_actors() {
         // Write code here that turns the phrase above into concrete actions
         throw new io.cucumber.java.PendingException();
     }
+    @Then("I get all the actors information on the database")
+    public void i_get_all_the_actors_information_on_the_database() {
+        // Write code here that turns the phrase above into concrete actions
+        throw new io.cucumber.java.PendingException();
+    }
+
 }
