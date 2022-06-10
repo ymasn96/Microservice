@@ -16,7 +16,6 @@ public class MyMicroServiceApplication {
 
 	@Autowired
 	private ActorRepository actorRepo;
-	private String testString;
 	@Autowired
 	private CategoryRepository categoryRepo;
 	@Autowired
