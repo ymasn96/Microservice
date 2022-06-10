@@ -18,11 +18,17 @@ public class MockitoTest {
     private MyMicroServiceApplication microServiceApplication;
     @Mock
     private ActorRepository actorRepo;
+    @Mock
+    private CategoryRepository categoryRepo;
+    @Mock
+    private FilmRepository filmRepo;
+    @Mock
+    private LanguageRepository languageRepo;
 
     @BeforeEach
-//    void setUp() {
-//        microServiceApplication = new MyMicroServiceApplication(actorRepo);
-//    }
+    void setUp() {
+        microServiceApplication = new MyMicroServiceApplication(actorRepo, categoryRepo, filmRepo, languageRepo);
+    }
 
     @Test
     public void getAllActors() {
