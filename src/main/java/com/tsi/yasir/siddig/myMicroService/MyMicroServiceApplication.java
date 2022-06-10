@@ -131,7 +131,7 @@ public class MyMicroServiceApplication {
 	@PostMapping("/Add_Film")
 	public @ResponseBody ResponseEntity<Film> addFilm(@RequestParam String title, String description, int release_year, String language_id, String original_language_id, int rental_duration, float rental_rate, int length, float replacement_cost, int rating, String special_features){
 
-		Film addFilm = new Film( title, description, release_year, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating, special_features);
+		Film addFilm = new Film( title, description, release_year, language_id, original_language_id, length, rating);
 		filmRepo.save(addFilm);
 
 		return ResponseEntity.ok(addFilm);
@@ -148,13 +148,8 @@ public class MyMicroServiceApplication {
 		updateFilm.setRelease_year(release_year);
 		updateFilm.setLanguage_id(language_id);
 		updateFilm.setOriginal_language_id(original_language_id);
-		updateFilm.setRental_duration(rental_duration);
-		updateFilm.setRental_rate(rental_rate);
 		updateFilm.setLength(length);
-		updateFilm.setReplacement_cost(replacement_cost);
 		updateFilm.setRating(rating);
-		updateFilm.setSpecial_features(special_features);
-
 		filmRepo.save(updateFilm);
 		return ResponseEntity.ok(updateFilm);
 	}
