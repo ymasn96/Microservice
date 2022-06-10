@@ -20,9 +20,9 @@ public class MockitoTest {
     private ActorRepository actorRepo;
 
     @BeforeEach
-    void setUp() {
-        microServiceApplication = new MyMicroServiceApplication(actorRepo);
-    }
+//    void setUp() {
+//        microServiceApplication = new MyMicroServiceApplication(actorRepo);
+//    }
 
     @Test
     public void getAllActors() {
