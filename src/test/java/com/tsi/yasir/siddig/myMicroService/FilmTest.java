@@ -60,5 +60,5 @@ class FilmTest {
         testFilm.setRating(10);
         Assertions.assertEquals(10, testFilm.getRating(), "rating is not present");
     }
-    
+
 }

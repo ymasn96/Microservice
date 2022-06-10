@@ -129,7 +129,7 @@ public class MyMicroServiceApplication {
 	}
 
 	@PostMapping("/Add_Film")
-	public @ResponseBody ResponseEntity<Film> addFilm(@RequestParam String title, String description, int release_year, String language_id, String original_language_id, int rental_duration, float rental_rate, int length, float replacement_cost, int rating, String special_features){
+	public @ResponseBody ResponseEntity<Film> addFilm(@RequestParam String title, String description, int release_year, int language_id, int original_language_id, int length, int rating){
 
 		Film addFilm = new Film( title, description, release_year, language_id, original_language_id, length, rating);
 		filmRepo.save(addFilm);
@@ -138,7 +138,7 @@ public class MyMicroServiceApplication {
 	}
 
 	@PutMapping("/Update_Film")
-	public ResponseEntity<Film> updateFilm(@RequestParam Integer film_id, String title, String description, Integer release_year, String language_id, String original_language_id, Integer rental_duration, Integer rental_rate, Integer length, Integer replacement_cost, Integer rating, String special_features){
+	public ResponseEntity<Film> updateFilm(@RequestParam Integer film_id, String title, String description, Integer release_year, int language_id, int original_language_id, int length, int rating){
 		Film updateFilm = filmRepo.findById(film_id)
 				.orElseThrow(() -> new ResourceNotFoundException("Film does not exist with id: " + film_id));
 
