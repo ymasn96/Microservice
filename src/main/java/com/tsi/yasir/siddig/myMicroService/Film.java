@@ -14,8 +14,8 @@ public class Film {
     private String title;
     private String description;
     private int release_year;
-    private String language_id;
-    private String original_language_id;
+    private int language_id;
+    private int original_language_id;
     private int length;
 
     private int rating;
@@ -24,8 +24,8 @@ public class Film {
     public Film (String title,
                 String description,
                 int release_year,
-                String language_id,
-                String original_language_id,
+                int language_id,
+                int original_language_id,
                 int length,
                 int rating
    )
@@ -74,19 +74,19 @@ public class Film {
         this.release_year = release_year;
     }
 
-    public String getLanguage_id() {
+    public int getLanguage_id() {
         return language_id;
     }
 
-    public void setLanguage_id(String language_id) {
+    public void setLanguage_id(int language_id) {
         this.language_id = language_id;
     }
 
-    public String getOriginal_language_id() {
+    public int getOriginal_language_id() {
         return original_language_id;
     }
 
-    public void setOriginal_language_id(String original_language_id) {
+    public void setOriginal_language_id(int original_language_id) {
         this.original_language_id = original_language_id;
     }
 
