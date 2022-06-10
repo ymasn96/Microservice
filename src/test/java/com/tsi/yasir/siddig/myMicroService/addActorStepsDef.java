@@ -16,8 +16,8 @@ public class addActorStepsDef {
 
     @BeforeEach
     void setup() {
-        actorRepo = mock(ActorRepository.class);
-        microServiceApplication = new MyMicroServiceApplication(actorRepo);
+//        actorRepo = mock(ActorRepository.class);
+//        microServiceApplication = new MyMicroServiceApplication(actorRepo);
     }
 
 
