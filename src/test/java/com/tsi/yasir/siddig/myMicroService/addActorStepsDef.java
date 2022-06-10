@@ -3,11 +3,27 @@ package com.tsi.yasir.siddig.myMicroService;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.jupiter.api.BeforeEach;
+import org.mockito.Mock;
+
+import static org.mockito.Mockito.mock;
 
 public class addActorStepsDef {
+
+    private MyMicroServiceApplication microServiceApplication;
+    @Mock
+    private ActorRepository actorRepo;
+
+    @BeforeEach
+    void setup() {
+        actorRepo = mock(ActorRepository.class);
+        microServiceApplication = new MyMicroServiceApplication(actorRepo);
+    }
+
+
+
     @Given("I have the actors information")
     public void i_have_the_actors_information() {
-//        Actor testActor = new Actor();
         throw new io.cucumber.java.PendingException();
     }
     @When("I input the data into the database")

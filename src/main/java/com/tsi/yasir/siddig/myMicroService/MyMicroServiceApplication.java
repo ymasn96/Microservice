@@ -15,21 +15,31 @@ import java.util.Optional;
 public class MyMicroServiceApplication {
 
 	@Autowired
-	private final ActorRepository actorRepo;
+	private ActorRepository actorRepo;
+	@Autowired
+	private CategoryRepository categoryRepo;
+	@Autowired
+	private FilmRepository filmRepo;
+	@Autowired
+	private LanguageRepository languageRepo;
 
 	public static void main(String[] args) {
 		SpringApplication.run(MyMicroServiceApplication.class, args);
 	}
 
-	public MyMicroServiceApplication(ActorRepository actorRepo) {
+
+	public MyMicroServiceApplication(ActorRepository actorRepo, CategoryRepository categoryRepo, FilmRepository filmRepo, LanguageRepository languageRepo) {
 		this.actorRepo = actorRepo;
+		this.categoryRepo = categoryRepo;
+		this.filmRepo = filmRepo;
+		this.languageRepo = languageRepo;
 	}
 
+	// ACTOR CRUD METHODS
+
 	@GetMapping("/All_Actors")
-	public @ResponseBody
-	void getAllActors() {
-		actorRepo.findAll();
-	}
+	public @ResponseBody Iterable<Actor> getAllActors() {
+		return actorRepo.findAll(); }
 
 	@GetMapping("/Get_Actors_By_Id")
 	public @ResponseBody
@@ -58,6 +68,149 @@ public class MyMicroServiceApplication {
 		Actor removeActor = actorRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Actor does not exist with id: " + id));
 		actorRepo.deleteById(id);
 		return ResponseEntity.ok(removeActor);
+	}
+
+	// CATEGORY CRUD METHODS
+
+	@GetMapping("/All_Category")
+	public @ResponseBody
+	Iterable<Category>getAllCategory(){
+		return categoryRepo.findAll();
+	}
+
+	@GetMapping("/Get_Category")
+	public ResponseEntity<Category> getCategory(@RequestParam Integer category_id){
+		Category category = categoryRepo.findById(category_id)
+				.orElseThrow(() -> new ResourceNotFoundException("Actor does not exist with ID: " + category_id));
+		return ResponseEntity.ok(category);
+	}
+
+	@PostMapping("/Add_Category")
+	public @ResponseBody ResponseEntity<Category> addCategory(@RequestParam String name){
+
+		Category addNewCategory = new Category(name);
+		categoryRepo.save(addNewCategory);
+
+		return ResponseEntity.ok(addNewCategory);
+	}
+
+	@PutMapping("/Update_Category")
+	public ResponseEntity<Category> updateCategory(@RequestParam int category_id, String name){
+		Category updateCategory = categoryRepo.findById(category_id)
+				.orElseThrow(() -> new ResourceNotFoundException("Actor not exist with id: " + category_id));
+		updateCategory.setCategory_id(category_id);
+		updateCategory.setName(name);
+		categoryRepo.save(updateCategory);
+		return ResponseEntity.ok(updateCategory);
+	}
+
+	@DeleteMapping("/Delete_Category")
+	public ResponseEntity<Category> deleteCategory(@RequestParam int category_id){
+
+		Category removeCategory = categoryRepo.findById(category_id)
+				.orElseThrow(() -> new ResourceNotFoundException("Actor not exist with id: " + category_id));
+		categoryRepo.deleteById(category_id);
+		return ResponseEntity.ok(removeCategory);
+	}
+
+	// FILM CRUD METHODS
+
+	@GetMapping("/All_Films")
+	public @ResponseBody
+	Iterable<Film>getAllFilms(){
+		return filmRepo.findAll();
+	}
+
+	@GetMapping("/Get_Film")
+	public ResponseEntity<Film> getFilm(@RequestParam Integer film_id){
+		Film film = filmRepo.findById(film_id)
+				.orElseThrow(() -> new ResourceNotFoundException("Film does not exist with ID: " + film_id));
+		return ResponseEntity.ok(film);
+	}
+
+	@PostMapping("/Add_Film")
+	public @ResponseBody ResponseEntity<Film> addFilm(@RequestParam String title, String description, int release_year, String language_id, String original_language_id, int rental_duration, float rental_rate, int length, float replacement_cost, int rating, String special_features){
+
+		Film addFilm = new Film( title, description, release_year, language_id, original_language_id, rental_duration, rental_rate, length, replacement_cost, rating, special_features);
+		filmRepo.save(addFilm);
+
+		return ResponseEntity.ok(addFilm);
+	}
+
+	@PutMapping("/Update_Film")
+	public ResponseEntity<Film> updateFilm(@RequestParam Integer film_id, String title, String description, Integer release_year, String language_id, String original_language_id, Integer rental_duration, Integer rental_rate, Integer length, Integer replacement_cost, Integer rating, String special_features){
+		Film updateFilm = filmRepo.findById(film_id)
+				.orElseThrow(() -> new ResourceNotFoundException("Film not exist with id: " + film_id));
+
+		updateFilm.setFilm_id(film_id);
+		updateFilm.setTitle(title);
+		updateFilm.setDescription(description);
+		updateFilm.setRelease_year(release_year);
+		updateFilm.setLanguage_id(language_id);
+		updateFilm.setOriginal_language_id(original_language_id);
+		updateFilm.setRental_duration(rental_duration);
+		updateFilm.setRental_rate(rental_rate);
+		updateFilm.setLength(length);
+		updateFilm.setReplacement_cost(replacement_cost);
+		updateFilm.setRating(rating);
+		updateFilm.setSpecial_features(special_features);
+
+		filmRepo.save(updateFilm);
+		return ResponseEntity.ok(updateFilm);
+	}
+
+	@DeleteMapping("/Delete_Film")
+	public ResponseEntity<Film> deleteFilm(@RequestParam int film_id){
+
+		Film removeFilm = filmRepo.findById(film_id)
+				.orElseThrow(() -> new ResourceNotFoundException("Film not exist with id: " + film_id));
+
+		filmRepo.deleteById(film_id);
+		return ResponseEntity.ok(removeFilm);
+	}
+
+	// LANGUAGE CRUD METHODS
+
+	@GetMapping("/allLanguage")
+	public @ResponseBody
+	Iterable<Language>getAllLanguages(){
+		return languageRepo.findAll();
+	}
+
+	@GetMapping("/getLanguage")
+	public ResponseEntity<Language> getLanguage(@RequestParam int language_id){
+		Language language = languageRepo.findById(language_id)
+				.orElseThrow(() -> new ResourceNotFoundException("Actor does not exist with ID: " + language_id));
+		return ResponseEntity.ok(language);
+	}
+
+	@PostMapping("/addLanguage")
+	public @ResponseBody ResponseEntity<Language> addLanguage(@RequestParam String name){
+
+		Language addLanguage = new Language(name);
+		languageRepo.save(addLanguage);
+		return ResponseEntity.ok(addLanguage);
+	}
+
+	@PutMapping("/updateLanguage")
+	public ResponseEntity<Language> updateLanguage(@RequestParam int language_id, String name){
+		Language updateLanguage = languageRepo.findById(language_id)
+				.orElseThrow(() -> new ResourceNotFoundException("Actor not exist with id: " + language_id));
+
+		updateLanguage.setLanguage_id(language_id);
+		updateLanguage.setName(name);
+		languageRepo.save(updateLanguage);
+		return ResponseEntity.ok(updateLanguage);
+	}
+
+	@DeleteMapping("/deleteLanguage")
+	public ResponseEntity<Language> deleteLanguage(@RequestParam int language_id){
+
+		Language removeLanguage = languageRepo.findById(language_id)
+				.orElseThrow(() -> new ResourceNotFoundException("Actor not exist with id: " + language_id));
+
+		languageRepo.deleteById(language_id);
+		return ResponseEntity.ok(removeLanguage);
 	}
 
 }

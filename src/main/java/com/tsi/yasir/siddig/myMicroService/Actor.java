@@ -1,8 +1,6 @@
 package com.tsi.yasir.siddig.myMicroService;
 
-
 import javax.persistence.*;
-
 
 @Entity
 @Table(name = "actor")
