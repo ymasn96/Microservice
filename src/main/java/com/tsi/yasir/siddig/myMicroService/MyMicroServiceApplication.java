@@ -81,7 +81,7 @@ public class MyMicroServiceApplication {
 	@GetMapping("/Get_Category")
 	public ResponseEntity<Category> getCategory(@RequestParam Integer category_id){
 		Category category = categoryRepo.findById(category_id)
-				.orElseThrow(() -> new ResourceNotFoundException("Actor does not exist with ID: " + category_id));
+				.orElseThrow(() -> new ResourceNotFoundException("Category does not exist with ID: " + category_id));
 		return ResponseEntity.ok(category);
 	}
 
@@ -97,7 +97,7 @@ public class MyMicroServiceApplication {
 	@PutMapping("/Update_Category")
 	public ResponseEntity<Category> updateCategory(@RequestParam int category_id, String name){
 		Category updateCategory = categoryRepo.findById(category_id)
-				.orElseThrow(() -> new ResourceNotFoundException("Actor not exist with id: " + category_id));
+				.orElseThrow(() -> new ResourceNotFoundException("Category does not exist with id: " + category_id));
 		updateCategory.setCategory_id(category_id);
 		updateCategory.setName(name);
 		categoryRepo.save(updateCategory);
@@ -108,7 +108,7 @@ public class MyMicroServiceApplication {
 	public ResponseEntity<Category> deleteCategory(@RequestParam int category_id){
 
 		Category removeCategory = categoryRepo.findById(category_id)
-				.orElseThrow(() -> new ResourceNotFoundException("Actor not exist with id: " + category_id));
+				.orElseThrow(() -> new ResourceNotFoundException("Category does not exist with id: " + category_id));
 		categoryRepo.deleteById(category_id);
 		return ResponseEntity.ok(removeCategory);
 	}
@@ -140,7 +140,7 @@ public class MyMicroServiceApplication {
 	@PutMapping("/Update_Film")
 	public ResponseEntity<Film> updateFilm(@RequestParam Integer film_id, String title, String description, Integer release_year, String language_id, String original_language_id, Integer rental_duration, Integer rental_rate, Integer length, Integer replacement_cost, Integer rating, String special_features){
 		Film updateFilm = filmRepo.findById(film_id)
-				.orElseThrow(() -> new ResourceNotFoundException("Film not exist with id: " + film_id));
+				.orElseThrow(() -> new ResourceNotFoundException("Film does not exist with id: " + film_id));
 
 		updateFilm.setFilm_id(film_id);
 		updateFilm.setTitle(title);
@@ -163,7 +163,7 @@ public class MyMicroServiceApplication {
 	public ResponseEntity<Film> deleteFilm(@RequestParam int film_id){
 
 		Film removeFilm = filmRepo.findById(film_id)
-				.orElseThrow(() -> new ResourceNotFoundException("Film not exist with id: " + film_id));
+				.orElseThrow(() -> new ResourceNotFoundException("Film does not exist with id: " + film_id));
 
 		filmRepo.deleteById(film_id);
 		return ResponseEntity.ok(removeFilm);
@@ -180,7 +180,7 @@ public class MyMicroServiceApplication {
 	@GetMapping("/getLanguage")
 	public ResponseEntity<Language> getLanguage(@RequestParam int language_id){
 		Language language = languageRepo.findById(language_id)
-				.orElseThrow(() -> new ResourceNotFoundException("Actor does not exist with ID: " + language_id));
+				.orElseThrow(() -> new ResourceNotFoundException("Language does not exist with ID: " + language_id));
 		return ResponseEntity.ok(language);
 	}
 
@@ -195,7 +195,7 @@ public class MyMicroServiceApplication {
 	@PutMapping("/updateLanguage")
 	public ResponseEntity<Language> updateLanguage(@RequestParam int language_id, String name){
 		Language updateLanguage = languageRepo.findById(language_id)
-				.orElseThrow(() -> new ResourceNotFoundException("Actor not exist with id: " + language_id));
+				.orElseThrow(() -> new ResourceNotFoundException("Language does not exist with id: " + language_id));
 
 		updateLanguage.setLanguage_id(language_id);
 		updateLanguage.setName(name);
@@ -207,7 +207,7 @@ public class MyMicroServiceApplication {
 	public ResponseEntity<Language> deleteLanguage(@RequestParam int language_id){
 
 		Language removeLanguage = languageRepo.findById(language_id)
-				.orElseThrow(() -> new ResourceNotFoundException("Actor not exist with id: " + language_id));
+				.orElseThrow(() -> new ResourceNotFoundException("Language does not exist with id: " + language_id));
 
 		languageRepo.deleteById(language_id);
 		return ResponseEntity.ok(removeLanguage);

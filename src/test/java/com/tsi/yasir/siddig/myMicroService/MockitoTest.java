@@ -13,7 +13,7 @@ import java.util.Optional;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class MockitoTest {
+class MockitoTest {
 
     private MyMicroServiceApplication microServiceApplication;
     @Mock
@@ -31,13 +31,13 @@ public class MockitoTest {
     }
 
     @Test
-    public void getAllActors() {
+    void getAllActors() {
         microServiceApplication.getAllActors();
         verify(actorRepo).findAll();
     }
 
     @Test
-    public void getAnActor() {
+    void getAnActor() {
         Actor testActor = new Actor("Benedict", "Cumberbatch");
         testActor.setActor_id(1);
         when(actorRepo.findById(1)).thenReturn(Optional.of(testActor));
@@ -47,7 +47,7 @@ public class MockitoTest {
     }
 
     @Test//post method for an actor
-    public void addAnActor() {
+    void addAnActor() {
         Actor testActor = new Actor("Johnny", "Depp");
         testActor.setActor_id(1); // Set actor id to 1
         Actor Actual = microServiceApplication.addActor(testActor.getFirst_name(), testActor.getLast_name()).getBody();
@@ -61,7 +61,7 @@ public class MockitoTest {
     }
 
     @Test
-    public void updateActor(){
+    void updateActor(){
         Actor testActor = new Actor("Tom", "Holland");
         testActor.setActor_id(1);
         when(actorRepo.findById(1)).thenReturn(Optional.of(testActor));
@@ -73,7 +73,7 @@ public class MockitoTest {
     }
 
     @Test//delete method for an actor
-    public void deleteActor(){
+    void deleteActor(){
         Actor testActor = new Actor("testFName", "testLName");
         testActor.setActor_id(1);
         when(actorRepo.findById(1)).thenReturn(Optional.of(testActor));
