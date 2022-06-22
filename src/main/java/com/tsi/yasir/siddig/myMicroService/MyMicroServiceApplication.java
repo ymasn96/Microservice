@@ -7,16 +7,17 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.Optional;
 
 @SpringBootApplication
 @RestController
 @RequestMapping("/")
+@CrossOrigin(origins = "*")
 public class MyMicroServiceApplication {
 
 	@Autowired
 	private ActorRepository actorRepo;
-	private String string;
 	@Autowired
 	private CategoryRepository categoryRepo;
 	@Autowired
@@ -130,16 +131,16 @@ public class MyMicroServiceApplication {
 	}
 
 	@PostMapping("/Add_Film")
-	public @ResponseBody ResponseEntity<Film> addFilm(@RequestParam String title, String description, int release_year, int language_id, int original_language_id, int length, int rating){
+	public @ResponseBody ResponseEntity<Film> addFilm(@RequestParam String title, String description, Date release_year, Language language, Integer original_language_id, int length, String rating){
 
-		Film addFilm = new Film( title, description, release_year, language_id, original_language_id, length, rating);
+		Film addFilm = new Film( title, description, release_year, language, original_language_id, length, rating);
 		filmRepo.save(addFilm);
 
 		return ResponseEntity.ok(addFilm);
 	}
 
 	@PutMapping("/Update_Film")
-	public ResponseEntity<Film> updateFilm(@RequestParam Integer film_id, String title, String description, Integer release_year, int language_id, int original_language_id, int length, int rating){
+	public ResponseEntity<Film> updateFilm(@RequestParam Integer film_id, String title, String description, Date release_year, Language language, Integer original_language_id, int length, String rating){
 		Film updateFilm = filmRepo.findById(film_id)
 				.orElseThrow(() -> new ResourceNotFoundException("Film does not exist with id: " + film_id));
 
@@ -147,7 +148,7 @@ public class MyMicroServiceApplication {
 		updateFilm.setTitle(title);
 		updateFilm.setDescription(description);
 		updateFilm.setRelease_year(release_year);
-		updateFilm.setLanguage_id(language_id);
+		updateFilm.setLanguage(language);
 		updateFilm.setOriginal_language_id(original_language_id);
 		updateFilm.setLength(length);
 		updateFilm.setRating(rating);
@@ -167,20 +168,20 @@ public class MyMicroServiceApplication {
 
 	// LANGUAGE CRUD METHODS
 
-	@GetMapping("/allLanguage")
+	@GetMapping("/All_Languages")
 	public @ResponseBody
 	Iterable<Language>getAllLanguages(){
 		return languageRepo.findAll();
 	}
 
-	@GetMapping("/getLanguage")
+	@GetMapping("/Get_Language")
 	public ResponseEntity<Language> getLanguage(@RequestParam int language_id){
 		Language language = languageRepo.findById(language_id)
 				.orElseThrow(() -> new ResourceNotFoundException("Language does not exist with ID: " + language_id));
 		return ResponseEntity.ok(language);
 	}
 
-	@PostMapping("/addLanguage")
+	@PostMapping("/Add_Language")
 	public @ResponseBody ResponseEntity<Language> addLanguage(@RequestParam String name){
 
 		Language addLanguage = new Language(name);
@@ -188,7 +189,7 @@ public class MyMicroServiceApplication {
 		return ResponseEntity.ok(addLanguage);
 	}
 
-	@PutMapping("/updateLanguage")
+	@PutMapping("/Update_Language")
 	public ResponseEntity<Language> updateLanguage(@RequestParam int language_id, String name){
 		Language updateLanguage = languageRepo.findById(language_id)
 				.orElseThrow(() -> new ResourceNotFoundException("Language does not exist with id: " + language_id));
@@ -199,7 +200,7 @@ public class MyMicroServiceApplication {
 		return ResponseEntity.ok(updateLanguage);
 	}
 
-	@DeleteMapping("/deleteLanguage")
+	@DeleteMapping("/Delete_Language")
 	public ResponseEntity<Language> deleteLanguage(@RequestParam int language_id){
 
 		Language removeLanguage = languageRepo.findById(language_id)

@@ -1,39 +1,83 @@
 package com.tsi.yasir.siddig.myMicroService;
 
-
 import javax.persistence.*;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="film")
 public class Film {
 
+    @org.springframework.data.annotation.Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private int film_id;
     private String title;
     private String description;
-    private int release_year;
-    private int language_id;
-    private int original_language_id;
+    private Date release_year;
+//    private int language_id;
+    private Integer original_language_id;
     private int length;
+    private String rating;
 
-    private int rating;
+//    @ManyToMany(cascade = CascadeType.PERSIST)
+//    @JoinTable(name = "film_actor",
+//            joinColumns = {
+//                    @JoinColumn(name = "film_id",referencedColumnName = "id", nullable = false, updatable = false)
+//            },
+//            inverseJoinColumns = {
+//                    @JoinColumn(name = "actor_id", referencedColumnName = "id", nullable = false, updatable = false)
+//            })
+//    private Set<Actor> actor = new HashSet<>();
+
+//    @ManyToMany(cascade = CascadeType.PERSIST)
+//    @JoinTable(name = "film_category",
+//            joinColumns = {
+//                    @JoinColumn(name ="film_id", referencedColumnName = "id", nullable = false, updatable = false)
+//            },
+//            inverseJoinColumns = {
+//                    @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false, updatable = false)
+//            })
+//    Set<Actor> actors;
+
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "film_category",
+            joinColumns = @JoinColumn(name="film_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private List<Category> categoryList = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "language_id")
+    private Language language;
+
+    @ManyToMany
+    @JoinTable(name = "film_actor", joinColumns = {
+            @JoinColumn(name = "film_id", nullable = false)
+    }, inverseJoinColumns = {
+            @JoinColumn(name = "actor_id", nullable = false)
+    })
+
+    Set<Actor> actors;
 
 
     public Film (String title,
                 String description,
-                int release_year,
-                int language_id,
-                int original_language_id,
+                Date release_year,
+                Language language,
+                 Integer original_language_id,
                 int length,
-                int rating
+                String rating
    )
     {
         this.title = title;
         this.description = description;
         this.release_year = release_year;
-        this.language_id = language_id;
+        this.language = language;
         this.original_language_id = original_language_id;
         this.length = length;
         this.rating = rating;
@@ -41,6 +85,7 @@ public class Film {
 
     public Film() {
     }
+
 
     public int getFilm_id() {
         return film_id;
@@ -66,27 +111,27 @@ public class Film {
         this.description = description;
     }
 
-    public int getRelease_year() {
+    public Date getRelease_year() {
         return release_year;
     }
 
-    public void setRelease_year(int release_year) {
+    public void setRelease_year( Date release_year) {
         this.release_year = release_year;
     }
 
-    public int getLanguage_id() {
-        return language_id;
+    public Language getLanguage() {
+        return language;
     }
 
-    public void setLanguage_id(int language_id) {
-        this.language_id = language_id;
+    public void setLanguage(Language language) {
+        this.language = language;
     }
 
-    public int getOriginal_language_id() {
+    public Integer getOriginal_language_id() {
         return original_language_id;
     }
 
-    public void setOriginal_language_id(int original_language_id) {
+    public void setOriginal_language_id(Integer original_language_id) {
         this.original_language_id = original_language_id;
     }
 
@@ -98,11 +143,11 @@ public class Film {
         this.length = length;
     }
 
-    public int getRating() {
+    public String getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(String rating) {
         this.rating = rating;
     }
 
