@@ -18,31 +18,10 @@ public class Film {
     private String title;
     private String description;
     private Date release_year;
-//    private int language_id;
+
     private Integer original_language_id;
     private int length;
     private String rating;
-
-//    @ManyToMany(cascade = CascadeType.PERSIST)
-//    @JoinTable(name = "film_actor",
-//            joinColumns = {
-//                    @JoinColumn(name = "film_id",referencedColumnName = "id", nullable = false, updatable = false)
-//            },
-//            inverseJoinColumns = {
-//                    @JoinColumn(name = "actor_id", referencedColumnName = "id", nullable = false, updatable = false)
-//            })
-//    private Set<Actor> actor = new HashSet<>();
-
-//    @ManyToMany(cascade = CascadeType.PERSIST)
-//    @JoinTable(name = "film_category",
-//            joinColumns = {
-//                    @JoinColumn(name ="film_id", referencedColumnName = "id", nullable = false, updatable = false)
-//            },
-//            inverseJoinColumns = {
-//                    @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false, updatable = false)
-//            })
-//    Set<Actor> actors;
-
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "film_category",
@@ -151,4 +130,19 @@ public class Film {
         this.rating = rating;
     }
 
+    public List<Category> getCategoryList() {
+        return categoryList;
+    }
+
+    public void setCategoryList(List<Category> categoryList) {
+        this.categoryList = categoryList;
+    }
+
+    public Set<Actor> getActors() {
+        return actors;
+    }
+
+    public void setActors(Set<Actor> actors) {
+        this.actors = actors;
+    }
 }

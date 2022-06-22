@@ -1,21 +1,24 @@
 package com.tsi.yasir.siddig.myMicroService;
 
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.safari.SafariDriver;
 
 public class seleniumTest {
 
-    public static void main(String[] args){
+//    WebDriver driver = new SafariDriver();
+//
+//    @Test
+//    public void test() {
+//        driver.navigate().to("http://www.google.com/");
+//// Click on the search text box and send value
+//        driver.findElement(By.id("lst-ib")).sendKeys("BrowserStack");
+//// Click on the search button
+//        driver.findElement(By.name("btnK")).click();
+//// Close the Browser
+//        driver.close();
+//    }
 
-        ChromeDriver driver=new ChromeDriver();
 
-        driver.get("http://demo.guru99.com/");
-
-        WebElement element = driver.findElement(By.xpath("//input[@name='emailid']"));
-        element.sendKeys("abc@gmail.com");
-
-        WebElement button = driver.findElement(By.xpath("//input[@name='btnLogin']"));
-        button.click();
-    }
 }

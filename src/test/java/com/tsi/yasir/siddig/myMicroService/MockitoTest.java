@@ -57,8 +57,6 @@ class MockitoTest {
         Actor Expected = actorArgumentCaptor.getValue();
         Assertions.assertEquals(Expected, Actual, "Actor was not added.");
 
-//        ArgumentCaptor allows us to capture an argument passed to a method in order to inspect it.
-//        This is especially useful when we can't access the argument outside the method we'd like to test.
     }
 
     @Test
