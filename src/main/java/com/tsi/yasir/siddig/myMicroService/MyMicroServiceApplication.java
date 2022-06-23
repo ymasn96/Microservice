@@ -127,30 +127,30 @@ public class MyMicroServiceApplication {
 	}
 
 	@PostMapping("/Add_Film")
-	public @ResponseBody ResponseEntity<Film> addFilm(@RequestParam String title, String description, Date release_year, Language language, Integer original_language_id, int length, String rating){
+	public @ResponseBody ResponseEntity<Film> addFilm(@RequestBody Film addFilm) {
 
-		Film addFilm = new Film( title, description, release_year, language, original_language_id, length, rating);
 		filmRepo.save(addFilm);
-
 		return ResponseEntity.ok(addFilm);
 	}
 
 	@PutMapping("/Update_Film")
-	public ResponseEntity<Film> updateFilm(@RequestParam Integer film_id, String title, String description, Date release_year, Language language, Integer original_language_id, int length, String rating){
-		Film updateFilm = filmRepo.findById(film_id)
-				.orElseThrow(() -> new ResourceNotFoundException("Film does not exist with id: " + film_id));
+	public ResponseEntity<Film> updateFilm(@RequestParam Film alterFilm){
+		Film updateFilm = filmRepo.findById(alterFilm.getFilm_id())
+				.orElseThrow(() -> new ResourceNotFoundException("Film does not exist with id: "));
 
-		updateFilm.setFilm_id(film_id);
-		updateFilm.setTitle(title);
-		updateFilm.setDescription(description);
-		updateFilm.setRelease_year(release_year);
-		updateFilm.setLanguage(language);
-		updateFilm.setOriginal_language_id(original_language_id);
-		updateFilm.setLength(length);
-		updateFilm.setRating(rating);
+//		updateFilm.setFilm_id(film_id);
+//		updateFilm.setTitle(title);
+//		updateFilm.setDescription(description);
+//		updateFilm.setRelease_year(release_year);
+//		updateFilm.setLanguage(language);
+//		updateFilm.setOriginal_language_id(original_language_id);
+//		updateFilm.setLength(length);
+//		updateFilm.setRating(rating);
 		filmRepo.save(updateFilm);
 		return ResponseEntity.ok(updateFilm);
 	}
+
+//	@RequestParam Integer film_id, String title, String description, Date release_year, Language language, Integer original_language_id, int length, String rating
 
 	@DeleteMapping("/Delete_Film")
 	public ResponseEntity<Film> deleteFilm(@RequestBody Film deleteFilm){
@@ -178,20 +178,18 @@ public class MyMicroServiceApplication {
 	}
 
 	@PostMapping("/Add_Language")
-	public @ResponseBody ResponseEntity<Language> addLanguage(@RequestParam String name){
+	public @ResponseBody ResponseEntity<Language> addLanguage(@RequestBody Language addLanguage){
 
-		Language addLanguage = new Language(name);
 		languageRepo.save(addLanguage);
 		return ResponseEntity.ok(addLanguage);
 	}
 
 	@PutMapping("/Update_Language")
-	public ResponseEntity<Language> updateLanguage(@RequestParam int language_id, String name){
-		Language updateLanguage = languageRepo.findById(language_id)
-				.orElseThrow(() -> new ResourceNotFoundException("Language does not exist with id: " + language_id));
+	public ResponseEntity<Language> updateLanguage(@RequestBody Language alterLanguage){
+		Language updateLanguage = languageRepo.findById(alterLanguage.getLanguage_id())
+				.orElseThrow(() -> new ResourceNotFoundException("Language does not exist with id: "));
 
-		updateLanguage.setLanguage_id(language_id);
-		updateLanguage.setName(name);
+		updateLanguage.setLanguage_id(updateLanguage.getLanguage_id());
 		languageRepo.save(updateLanguage);
 		return ResponseEntity.ok(updateLanguage);
 	}

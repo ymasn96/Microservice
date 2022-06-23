@@ -164,18 +164,34 @@ class MockitoTest {
         Assertions.assertEquals(Expected, Actual,"Could not find Film with ID: ");
     }
 
-//    @Test
-//    void addFilm() {
-//        Date testDate = new Date();
-//        Language testLanguage = new Language();
-//        Film testFilm = new Film("testTitle", "testDescription", testDate , testLanguage, 1, 95, "PG");
-//        testFilm.setFilm_id(1);
-//        Film Actual = filmRepo.addFilm(testFilm).getBody();
-//        ArgumentCaptor<Film> actorArgumentCaptor = ArgumentCaptor.forClass(Film.class);
-//        verify(filmRepo).save(actorArgumentCaptor.capture());
-//        Film Expected = actorArgumentCaptor.getValue();
-//        Assertions.assertEquals(Expected,Actual,"Film was not added.");
-//    }
+    @Test
+    void addFilm() {
+        Date testDate = new Date();
+        Language testLanguage = new Language();
+        Film testFilm = new Film("testTitle", "testDescription", testDate , testLanguage, 1, 95, "PG");
+        testFilm.setFilm_id(1);
+        Film Actual = microServiceApplication.addFilm(testFilm).getBody();
+        ArgumentCaptor<Film> actorArgumentCaptor = ArgumentCaptor.forClass(Film.class);
+        verify(filmRepo).save(actorArgumentCaptor.capture());
+        Film Expected = actorArgumentCaptor.getValue();
+        Assertions.assertEquals(Expected,Actual,"Film was not added.");
+    }
+
+    @Test
+    void updateFilm() {
+        Date testDate = new Date();
+        Language testLanguage = new Language();
+        Film testFilm = new Film("testTitle", "testDescription", testDate , testLanguage, 1, 95, "PG");
+        testFilm.setFilm_id(1);
+        Film testFilmUpdated = new Film("testTitle", "testDescription", testDate , testLanguage, 1, 95, "PG");
+        testFilmUpdated.setFilm_id(1);
+        when(filmRepo.findById(testFilm.getFilm_id())).thenReturn(Optional.of(testFilmUpdated));
+        Film Actual = microServiceApplication.updateFilm(testFilmUpdated).getBody();
+        ArgumentCaptor<Film> actorArgumentCaptor = ArgumentCaptor.forClass(Film.class);
+        verify(filmRepo).save(actorArgumentCaptor.capture());
+        Film Expected = actorArgumentCaptor.getValue();
+        Assertions.assertEquals(Expected,Actual,"Category was not updated.");
+    }
 
     @Test
     void deleteFilm() {
@@ -208,7 +224,32 @@ class MockitoTest {
         when(languageRepo.findById(1)).thenReturn(Optional.of(testLanguage));
         Language Actual = microServiceApplication.getLanguage(testLanguage.getLanguage_id()).getBody();
         Language Expected = testLanguage;
-        Assertions.assertEquals(Expected, Actual,"Could not find Film with ID: ");
+        Assertions.assertEquals(Expected, Actual,"Could not find Language with ID: ");
+    }
+
+    @Test
+    void addLanguage() {
+        Language testLanguage = new Language("testLanguage");
+        testLanguage.setLanguage_id(1);
+        Language Actual = microServiceApplication.addLanguage(testLanguage).getBody();
+        ArgumentCaptor<Language> actorArgumentCaptor = ArgumentCaptor.forClass(Language.class);
+        verify(languageRepo).save(actorArgumentCaptor.capture());
+        Language Expected = testLanguage;
+        Assertions.assertEquals(Expected, Actual,"Could not find Language with ID: ");
+    }
+
+    @Test
+    void updateLanguage() {
+        Language testLanguage = new Language("testLanguage");
+        testLanguage.setLanguage_id(1);
+        Language testLanguageUpdated = new Language("testLanguageUpdated");
+        testLanguageUpdated.setLanguage_id(1);
+        when(languageRepo.findById(testLanguage.getLanguage_id())).thenReturn(Optional.of(testLanguageUpdated));
+        Language Actual = microServiceApplication.updateLanguage(testLanguageUpdated).getBody();
+        ArgumentCaptor<Language> actorArgumentCaptor = ArgumentCaptor.forClass(Language.class);
+        verify(languageRepo).save(actorArgumentCaptor.capture());
+        Language Expected = actorArgumentCaptor.getValue();
+        Assertions.assertEquals(Expected,Actual,"Category was not updated.");
     }
 
     @Test//delete method for a Language
@@ -224,4 +265,5 @@ class MockitoTest {
         Language Expected = testLanguageDelete;
         Assertions.assertEquals(Expected,Actual,"Language was not deleted.");
     }
+
 }
