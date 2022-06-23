@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 class LanguageTest {
 
     @Test
-    void testGetCategory_id() {
+    void testGetLanguage_id() {
         Language testLanguage = new Language("test_name");
         testLanguage.setLanguage_id(1);
         Assertions.assertEquals(1, testLanguage.getLanguage_id(), "id is not available");
@@ -20,7 +20,7 @@ class LanguageTest {
     }
 
     @Test
-    void testGetName_id() {
+    void testGetName() {
         Language testLanguage = new Language("test_name");
         testLanguage.setName("newName");
         Assertions.assertEquals("newName", testLanguage.getName(), "Name is not present");

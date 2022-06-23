@@ -3,7 +3,6 @@ package com.tsi.yasir.siddig.myMicroService;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.safari.SafariDriver;
 
 public class seleniumTest {
 
