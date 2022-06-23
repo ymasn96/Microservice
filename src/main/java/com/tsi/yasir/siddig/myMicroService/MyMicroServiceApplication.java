@@ -153,12 +153,12 @@ public class MyMicroServiceApplication {
 	}
 
 	@DeleteMapping("/Delete_Film")
-	public ResponseEntity<Film> deleteFilm(@RequestParam int film_id){
+	public ResponseEntity<Film> deleteFilm(@RequestBody Film deleteFilm){
 
-		Film removeFilm = filmRepo.findById(film_id)
-				.orElseThrow(() -> new ResourceNotFoundException("Film does not exist with id: " + film_id));
+		Film removeFilm = filmRepo.findById(deleteFilm.getFilm_id())
+				.orElseThrow(() -> new ResourceNotFoundException("Film does not exist with id: "));
 
-		filmRepo.deleteById(film_id);
+		filmRepo.deleteById(removeFilm.getFilm_id());
 		return ResponseEntity.ok(removeFilm);
 	}
 
@@ -197,12 +197,12 @@ public class MyMicroServiceApplication {
 	}
 
 	@DeleteMapping("/Delete_Language")
-	public ResponseEntity<Language> deleteLanguage(@RequestParam int language_id){
+	public ResponseEntity<Language> deleteLanguage(@RequestBody Language deleteLanguage){
 
-		Language removeLanguage = languageRepo.findById(language_id)
-				.orElseThrow(() -> new ResourceNotFoundException("Language does not exist with id: " + language_id));
+		Language removeLanguage = languageRepo.findById(deleteLanguage.getLanguage_id())
+				.orElseThrow(() -> new ResourceNotFoundException("Language does not exist with id: "));
 
-		languageRepo.deleteById(language_id);
+		languageRepo.deleteById(removeLanguage.getLanguage_id());
 		return ResponseEntity.ok(removeLanguage);
 	}
 

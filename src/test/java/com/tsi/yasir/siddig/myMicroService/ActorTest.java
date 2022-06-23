@@ -3,7 +3,9 @@ package com.tsi.yasir.siddig.myMicroService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class ActorTest {
+import java.util.List;
+
+class ActorTest {
 
     @Test
     void testGetActor_id() {
@@ -46,4 +48,5 @@ public class ActorTest {
         testActor.setLast_name("last_name");
         Assertions.assertEquals("last_name", testActor.getLast_name(), "id is not available");
     }
+
 }
