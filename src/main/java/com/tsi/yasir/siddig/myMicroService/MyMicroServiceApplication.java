@@ -76,7 +76,7 @@ public class MyMicroServiceApplication {
 
 	@GetMapping("/All_Category")
 	public @ResponseBody
-	Iterable<Category>getAllCategory(){
+	Iterable<Category>getAllCategories(){
 		return categoryRepo.findAll();
 	}
 
@@ -88,30 +88,26 @@ public class MyMicroServiceApplication {
 	}
 
 	@PostMapping("/Add_Category")
-	public @ResponseBody ResponseEntity<Category> addCategory(@RequestParam String name){
+	public @ResponseBody ResponseEntity<Category> addCategory(@RequestBody Category addCategory){
 
-		Category addNewCategory = new Category(name);
-		categoryRepo.save(addNewCategory);
-
-		return ResponseEntity.ok(addNewCategory);
+		categoryRepo.save(addCategory);
+		return ResponseEntity.ok(addCategory);
 	}
 
 	@PutMapping("/Update_Category")
-	public ResponseEntity<Category> updateCategory(@RequestParam int category_id, String name){
-		Category updateCategory = categoryRepo.findById(category_id)
-				.orElseThrow(() -> new ResourceNotFoundException("Category does not exist with id: " + category_id));
-		updateCategory.setCategory_id(category_id);
-		updateCategory.setName(name);
+	public ResponseEntity<Category> updateCategory(@RequestBody Category alterCategory){
+		Category updateCategory = categoryRepo.findById(alterCategory.getCategory_id())
+				.orElseThrow(() -> new ResourceNotFoundException("Category does not exist with id: "));
 		categoryRepo.save(updateCategory);
 		return ResponseEntity.ok(updateCategory);
 	}
 
 	@DeleteMapping("/Delete_Category")
-	public ResponseEntity<Category> deleteCategory(@RequestParam int category_id){
+	public ResponseEntity<Category> deleteCategory(@RequestBody Category deleteCategory){
 
-		Category removeCategory = categoryRepo.findById(category_id)
-				.orElseThrow(() -> new ResourceNotFoundException("Category does not exist with id: " + category_id));
-		categoryRepo.deleteById(category_id);
+		Category removeCategory = categoryRepo.findById(deleteCategory.getCategory_id())
+				.orElseThrow(() -> new ResourceNotFoundException("Category does not exist with id: "));
+		categoryRepo.deleteById(removeCategory.getCategory_id());
 		return ResponseEntity.ok(removeCategory);
 	}
 

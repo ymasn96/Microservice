@@ -24,7 +24,8 @@ public class Category {
     )
     private Set<Film> films = new HashSet<>();
 
-    public Category(String name) {
+    public Category(int category_id, String name) {
+        this.category_id = category_id;
         this.name = name;
     }
 

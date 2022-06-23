@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Optional;
 
@@ -30,6 +31,8 @@ class MockitoTest {
     void setUp() {
         microServiceApplication = new MyMicroServiceApplication(actorRepo, categoryRepo, filmRepo, languageRepo);
     }
+
+    // Actor Tests
 
     @Test
     void getAllActors() {
@@ -81,6 +84,63 @@ class MockitoTest {
         actorRepo.deleteById(testActor.getActor_id());
         Actor Expected = testActor;
         Assertions.assertEquals(Expected,Actual,"Actor was not deleted.");
+    }
+
+    // Category Tests
+
+    @Test
+    void getAllCategories() {
+        microServiceApplication.getAllCategories();
+        verify(categoryRepo).findAll();
+    }
+
+    @Test
+    void getCategory() {
+        Category testCategory = new Category(1,"Testing");
+        testCategory.setCategory_id(1);
+        when(categoryRepo.findById(1)).thenReturn(Optional.of(testCategory));
+        Category Actual = microServiceApplication.getCategory(testCategory.getCategory_id()).getBody();
+        Category Expected = testCategory;
+        Assertions.assertEquals(Expected, Actual,"Could not find category with ID: ");
+    }
+
+    @Test
+    void addCategory() {
+        Category testCategory = new Category(1,"Testing");
+        testCategory.setCategory_id(1);
+        Category Actual = microServiceApplication.addCategory(testCategory).getBody();
+        ArgumentCaptor<Category> actorArgumentCaptor = ArgumentCaptor.forClass(Category.class);
+        verify(categoryRepo).save(actorArgumentCaptor.capture());
+        Category Expected = actorArgumentCaptor.getValue();
+        Assertions.assertEquals(Expected,Actual,"A new category was not added.");
+    }
+
+    @Test
+    void updateCategory(){
+        Category testCategory = new Category(1, "testCategory");
+        testCategory.setCategory_id(1);
+        Category testCategoryUpdated = new Category(1, "testCategoryUpdated");
+        testCategoryUpdated.setCategory_id(1);
+        when(categoryRepo.findById(testCategory.getCategory_id())).thenReturn(Optional.of(testCategoryUpdated));
+        Category Actual = microServiceApplication.updateCategory(testCategoryUpdated).getBody();
+        ArgumentCaptor<Category> actorArgumentCaptor = ArgumentCaptor.forClass(Category.class);
+        verify(categoryRepo).save(actorArgumentCaptor.capture());
+        Category Expected = actorArgumentCaptor.getValue();
+        Assertions.assertEquals(Expected,Actual,"Category was not updated.");
+    }
+
+    @Test
+    void deleteCategory(){
+        Category testCategory = new Category(1, "testCategory");
+        testCategory.setCategory_id(1);
+        Category testCategoryDeleted = new Category(1, "testCategoryDeleted");
+        testCategory.setCategory_id(1);
+        when(categoryRepo.findById(testCategoryDeleted.getCategory_id())).thenReturn(Optional.of(testCategoryDeleted));
+        doNothing().when(categoryRepo).deleteById(1);
+        Category Actual = microServiceApplication.deleteCategory(testCategoryDeleted).getBody();
+        categoryRepo.deleteById(testCategoryDeleted.getCategory_id());
+        Category Expected = testCategoryDeleted;
+        Assertions.assertEquals(Expected,Actual,"Category was not deleted.");
     }
 
 }
