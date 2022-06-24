@@ -1,4 +1,4 @@
-Feature: View actor information
+Feature: View all actor information
   As a user I would like to view all searched actors
 
   Scenario: The information responds to search query input
