@@ -13,7 +13,6 @@ import java.util.Optional;
 @SpringBootApplication
 @RestController
 @RequestMapping("/")
-@CrossOrigin(origins = "*")
 public class MyMicroServiceApplication {
 
 	@Autowired
