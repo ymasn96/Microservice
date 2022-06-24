@@ -25,4 +25,11 @@ class LanguageTest {
         testLanguage.setName("newName");
         Assertions.assertEquals("newName", testLanguage.getName(), "Name is not present");
     }
+
+    @Test
+    void testSetName() {
+        Language testLanguage = new Language("test_name");
+        testLanguage.setName("newName");
+        Assertions.assertEquals("newName", testLanguage.getName(), "Name is not present");
+    }
 }

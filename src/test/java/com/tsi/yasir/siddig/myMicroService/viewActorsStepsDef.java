@@ -5,20 +5,20 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class viewActorsStepsDef {
-    @Given("I have the actors table")
-    public void i_have_the_actors_table() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+
+    @Given("The web application is running")
+    public void the_web_application_is_running() {
+
     }
-    @When("I request to view all actors")
-    public void i_request_to_view_all_actors() {
+
+    @When("I type an actor's first name or last name into the search box")
+    public void i_type_an_actor_s_first_name_or_last_name_into_the_search_box() {
         // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
     }
-    @Then("I get all the actors information on the database")
-    public void i_get_all_the_actors_information_on_the_database() {
+
+    @Then("I get a card displaying the actors name")
+    public void i_get_a_card_displaying_the_actors_name() {
         // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
     }
 
 }

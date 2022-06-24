@@ -8,7 +8,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.ResponseEntity;
 
 import java.util.Date;
 import java.util.Optional;
@@ -190,7 +189,7 @@ class MockitoTest {
         ArgumentCaptor<Film> actorArgumentCaptor = ArgumentCaptor.forClass(Film.class);
         verify(filmRepo).save(actorArgumentCaptor.capture());
         Film Expected = actorArgumentCaptor.getValue();
-        Assertions.assertEquals(Expected,Actual,"Category was not updated.");
+        Assertions.assertEquals(Expected,Actual,"Film was not updated.");
     }
 
     @Test
@@ -235,7 +234,7 @@ class MockitoTest {
         ArgumentCaptor<Language> actorArgumentCaptor = ArgumentCaptor.forClass(Language.class);
         verify(languageRepo).save(actorArgumentCaptor.capture());
         Language Expected = testLanguage;
-        Assertions.assertEquals(Expected, Actual,"Could not find Language with ID: ");
+        Assertions.assertEquals(Expected, Actual,"Language was not added: ");
     }
 
     @Test
@@ -249,7 +248,7 @@ class MockitoTest {
         ArgumentCaptor<Language> actorArgumentCaptor = ArgumentCaptor.forClass(Language.class);
         verify(languageRepo).save(actorArgumentCaptor.capture());
         Language Expected = actorArgumentCaptor.getValue();
-        Assertions.assertEquals(Expected,Actual,"Category was not updated.");
+        Assertions.assertEquals(Expected,Actual,"Language was not updated.");
     }
 
     @Test//delete method for a Language
